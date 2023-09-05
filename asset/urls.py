@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .data import StaffModelUploadView
+from .data import StaffModelUploadView, StaffTestExcelUploadView
 from .views import DepartmentDetail, DepartmentList, UserSearchView,DepartmentSearchView,StationSearchView,SectionSearchView, StationListCreateAPIView, StationRetreiveUpdateDestroyAPIView, SectionList, SectionDetail, UserList, UserDetail
 
 urlpatterns = [
@@ -21,7 +21,8 @@ urlpatterns = [
     path('section_search/',SectionSearchView.as_view(), name='section-search'),
     path('station_search/', StationSearchView.as_view(), name='station-search'),
 
-    path('upload/staff_model/', StaffModelUploadView.as_view(), name='upload_staff'),
+    # path('upload/staff_model/', StaffModelUploadView.as_view(), name='upload_staff'),
+    path('upload-staff/', StaffTestExcelUploadView.as_view(), name='upload-staff'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

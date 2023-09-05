@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Station, Department, Section, Asset, DeployedAsset, Staff
+from .models import User, Station, Department, Section, Asset, DeployedAsset, Staff,Grade, Division
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,6 +9,16 @@ class UserSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
+        fields = '__all__'
+
+class GradeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Grade
+        fields = '__all__'
+
+class DivisionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Division
         fields = '__all__'
 
 

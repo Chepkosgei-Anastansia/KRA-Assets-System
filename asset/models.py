@@ -15,15 +15,22 @@ class Department(models.Model):
     def __str__(self):
         return self.name
     
-class Section(models.Model):
+class Division(models.Model):
     name = models.CharField(max_length=50)
     department=models.ForeignKey(Department, on_delete= models.CASCADE)
 
     def __str__(self):
         return self.name
     
+class Section(models.Model):
+    name = models.CharField(max_length=50)
+    division=models.ForeignKey(Division, on_delete= models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
 class Grade(models.Model):
-     GRADE_OPTIONS=(
+     POSITION_OPTIONS=(
         ('DEPUTY COMMISIONNER', '8'),
         ('CHIEF MANAGER','7'),
         ('MANAGER','6'),
@@ -33,6 +40,9 @@ class Grade(models.Model):
         ('SUPPORT II','2'),
         ('SUPPORT I','1'),
     )
+     designation = models.CharField(max_length=50, choices=POSITION_OPTIONS)
+     def __str__(self):
+        return self.designation
     
 class User(models.Model):
     personal_number =models.CharField(max_length=50, primary_key=True)
@@ -53,9 +63,10 @@ class Staff(models.Model):
     staff_name =models.CharField(max_length=50)
     designation = models.CharField(max_length=50)
     grade=models.CharField(max_length=50)
-    department=models.CharField(max_length=50)
-    section=models.CharField(max_length=50)
-    station = models.CharField(max_length=50)
+    department=models.ForeignKey(Department, on_delete= models.CASCADE)
+    division=models.ForeignKey(Division, on_delete= models.CASCADE)
+    section=models.ForeignKey(Section, on_delete= models.CASCADE)
+    station = models.ForeignKey(Station, on_delete= models.CASCADE)
 
 
     def __str__(self):
