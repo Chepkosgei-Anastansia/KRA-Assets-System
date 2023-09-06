@@ -7,4 +7,4 @@ class AssetCreation(forms.Form):
     model_type = forms.EmailField(label='Email Address', max_length=100)
     model_number = forms.CharField(label='User Role', widget=forms.Select(choices= ROLE))
     macs_address =
-    2086
+    

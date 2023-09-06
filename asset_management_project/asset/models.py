@@ -15,12 +15,35 @@ class Department(models.Model):
     def __str__(self):
         return self.name
     
+class Division(models.Model):
+    name = models.CharField(max_length=50)
+    department=models.ForeignKey(Department, on_delete= models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
 class Section(models.Model):
     name = models.CharField(max_length=50)
-    station=models.ForeignKey(Department, on_delete= models.CASCADE)
+    division=models.ForeignKey(Division, on_delete= models.CASCADE)
 
-
-
+    def __str__(self):
+        return self.name
+    
+class Grade(models.Model):
+     POSITION_OPTIONS=(
+        ('DEPUTY COMMISIONNER', '8'),
+        ('CHIEF MANAGER','7'),
+        ('MANAGER','6'),
+        ('ASSISTANT MANAGER','5'),
+        ('SUPERVISER','4'),
+        ('OFFICER','3'),
+        ('SUPPORT II','2'),
+        ('SUPPORT I','1'),
+    )
+     designation = models.CharField(max_length=50, choices=POSITION_OPTIONS)
+     def __str__(self):
+        return self.designation
+    
 class User(models.Model):
     personal_number =models.CharField(max_length=50, primary_key=True)
     domain =models.CharField(max_length=50)
@@ -31,7 +54,23 @@ class User(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return self.name   
+
+
+
+class Staff(models.Model):
+    staff_number =models.CharField(max_length=50, primary_key=True)
+    staff_name =models.CharField(max_length=50)
+    designation = models.CharField(max_length=50)
+    grade=models.CharField(max_length=50)
+    department=models.ForeignKey(Department, on_delete= models.CASCADE)
+    division=models.ForeignKey(Division, on_delete= models.CASCADE)
+    section=models.ForeignKey(Section, on_delete= models.CASCADE)
+    station = models.ForeignKey(Station, on_delete= models.CASCADE)
+
+
+    def __str__(self):
+        return self.staff_number
     
 
 class Asset(models.Model):
@@ -56,6 +95,10 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.ticket_number
+    
+class AssetsDeployed(models.Model):
+    current_owner = previous_owner = models.ForeignKey(User, on_delete= models.DO_NOTHING, related_name='previous_user')
+    current_owner_name =
 
 
 class DeployedAsset(models.Model):
