@@ -95,7 +95,7 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.ticket_number
-
+    
 
 class DeployedAsset(models.Model):
      
@@ -120,6 +120,34 @@ class DeployedAsset(models.Model):
 
     def __str__(self):
         return self.current_location
+    
+    
+class AssetsDeployed(models.Model):
+
+    STATUS_OPTIONS=(
+        ('Working', 'Working'),
+        ('Faulty','Faulty'),
+    )
+     
+    owner = models.ForeignKey(Staff, on_delete= models.DO_NOTHING)
+    department=models.ForeignKey(Department, on_delete= models.CASCADE)
+    section=models.ForeignKey(Section, on_delete= models.CASCADE)
+    region = models.CharField(max_length=50)
+    station = models.ForeignKey(Station, on_delete= models.DO_NOTHING)
+    floor = models.CharField(max_length=20)
+    asset_type = models.CharField(max_length=50)
+    status = models.CharField(max_length=30, choices=STATUS_OPTIONS)
+    monitor_model = models.CharField(max_length=50)
+    monitor_serial_number = models.CharField(max_length=50)
+    asset_model = models.CharField(max_length=50)
+    asset_model_number = models.CharField(max_length=50)
+    asset_serial_number = models.CharField(max_length=50, primary_key=True)
+
+
+    def __str__(self):
+        return self.asset_serial_number, self.owner
+    
+
 
 
     
